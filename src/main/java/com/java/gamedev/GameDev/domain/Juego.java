@@ -52,6 +52,14 @@ public class Juego {
    //         inverseJoinColumns = @JoinColumn(name = "tarea_id"))
    // private List<Tarea> tareas = new ArrayList<>();
 
-
+    @Override
+    public String toString() {
+        return "{" +
+                "'uuid':'" + uuid +'\'' +
+                ", 'titulo':'" + titulo + '\'' +
+                ", 'descripcion':'" +descripcion + '\'' +
+                ", 'fechaLanzamiento':'" + fechaLanzamiento +'\'' +
+                '}';
+    }
 }
 

@@ -37,11 +37,16 @@ public class Desarrollador {
     @Enumerated(EnumType.STRING)
     private RolEnum rol;
 
-    //@ManyToOne
-    //private Juego juego;
 
-    //@OneToMany(mappedBy = "desarrollador",cascade = CascadeType.ALL)
-    //private List<Juego> juegos = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "{" +
+                "'uuid':'" + uuid +'\'' +
+                ", 'nombre':'" + nombre + '\'' +
+                ", 'email':'" +email + '\'' +
+                ", 'rol':'" + rol +'\'' +
+                '}';
+    }
 
 }

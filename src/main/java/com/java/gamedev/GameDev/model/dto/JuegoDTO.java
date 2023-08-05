@@ -8,6 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class JuegoDTO {
+    private String UUII;
     private String titulo;
     private String descripcion;
+    private String fechaLanzamiento;
 }

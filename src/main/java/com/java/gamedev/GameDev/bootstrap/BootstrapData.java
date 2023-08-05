@@ -101,18 +101,22 @@ public class BootstrapData implements CommandLineRunner {
     }
 
     private void loadTareas () throws FileNotFoundException{
-        List<Desarrollador> desarrolladorList = desarrolladorRepository.findAll();
-        List<Juego> juegoList = juegoRepository.findAll();
+        if (tareaRepository.count()<50) {
 
-        if (juegoList.size() >= 50 && desarrolladorList.size() >= 50 ) {
-            File file = ResourceUtils.getFile("classpath:csvdata/tareas.csv");
-            List<TareaCsvRecord> tareaCsvRecordList = tareaCsvService.importarCsv(file);
-            log.info("Cargando tareas");
 
-            for (int i = 0; i < 50; i++) {
-                tareaRepository.save(
-                        getNuevaTarea(desarrolladorList.get(i),juegoList.get(i), tareaCsvRecordList.get(i))
-                );
+            List<Desarrollador> desarrolladorList = desarrolladorRepository.findAll();
+            List<Juego> juegoList = juegoRepository.findAll();
+
+            if (juegoList.size() >= 50 && desarrolladorList.size() >= 50) {
+                File file = ResourceUtils.getFile("classpath:csvdata/tareas.csv");
+                List<TareaCsvRecord> tareaCsvRecordList = tareaCsvService.importarCsv(file);
+                log.info("Cargando tareas");
+
+                for (int i = 0; i < 50; i++) {
+                    tareaRepository.save(
+                            getNuevaTarea(desarrolladorList.get(i), juegoList.get(i), tareaCsvRecordList.get(i))
+                    );
+                }
             }
         }
 
@@ -124,7 +128,7 @@ public class BootstrapData implements CommandLineRunner {
                 .uuid(UUID.randomUUID())
                 .descripcion(tareaCsvRecord.getDescripcion())
                 .estado(EstadoEnum.valueOf(tareaCsvRecord.getEstado()))
-                .fehcaLimite(LocalDate.parse(tareaCsvRecord.getFehcaLimite() , DateTimeFormatter.ofPattern("M/d/yyyy")))
+                .fechaLimite(LocalDate.parse(tareaCsvRecord.getFehcaLimite() , DateTimeFormatter.ofPattern("M/d/yyyy")))
                 .desarrollador(desarrollador)
                 .juego(juego)
                 .build();
